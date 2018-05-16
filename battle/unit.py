@@ -1,10 +1,24 @@
-class Unit:
-    def __init__(self, health=100, recharge=100):
-        self.health = health
-        self.recharge = recharge
+from abc import ABCMeta, abstractmethod
 
-    def attack(self):
+class Unit(metaclass=ABCMeta):
+    def __init__(self, health=100, recharge=100):
+        self._health = health
+        self._recharge = recharge
+
+    @abstractmethod
+    def attack(self, target):
         pass
     
-    def damage(self):
+    @abstractmethod
+    def take_damage(self):
         pass
+
+    @property
+    @abstractmethod
+    def alive(self):
+        pass
+
+    @property
+    def health(self):
+        return self._health
+
