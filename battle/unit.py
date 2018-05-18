@@ -1,24 +1,26 @@
 from abc import ABCMeta, abstractmethod
 
 class Unit(metaclass=ABCMeta):
+    # __counter = 0
+
     def __init__(self, health=100, recharge=100):
-        self._health = health
-        self._recharge = recharge
+        # self.__class__.__counter += 1
+        # self.__id = self.__class__.__counter
+        self.__health = health
+        self.__recharge = recharge
 
     @abstractmethod
-    def attack(self, target):
+    def attack(self):
         pass
     
     @abstractmethod
-    def take_damage(self):
+    def damage(self):
         pass
 
     @property
-    @abstractmethod
     def alive(self):
-        pass
+        return self.__health > 0
 
     @property
     def health(self):
-        return self._health
-
+        return self.__health
