@@ -1,35 +1,28 @@
 from battle.unit import Unit
+import battle.statisctics.statisctics as st
 
 class Vehicle(Unit):
-    __operators = []
-    __counter = 0
+    _operators = []
 
-    def __init__(self, health, recharge, operator1=None, operator2=None, operator3=None):
-        self.__class__.__counter += 1
-        self.__id = self.__class__.__counter
-        self.__operators.append(operator1)
-        self.__operators.append(operator2)
-        self.__operators.append(operator3)
-        super().__init__(health, recharge)
 
-    def __str__(self):
-        return self.__class__.__name__ + "_" + str(self.__id)
+    def __init__(self, name, health, recharge, operator1=None, operator2=None, operator3=None):
+        super().__init__(name, health, recharge)
+        self._operators.append(operator1)
+        self._operators.append(operator2)
+        self._operators.append(operator3)
 
-    def __repr__(self):
-        return self.__class__.__name__ + "_" + str(self.__id)
-    
     @property
     def operators(self):
-        return self.__operators
+        return self._operators
     
     @operators.setter
     def set_operator(self, operator):
-        if len(self.__operators) < 3 and not operator is None:
-            self.__operators.append(operator)
+        if len(self._operators) < 3 and not operator is None:
+            self._operators.append(operator)
 
     def attack(self):
-        return 111
-        # 0.5 * (1 + self.health / 100) * gavg(operators.attack_success)
+        return 0.5 * (1 + self.health / 100) * st.harmonic_mean([op.attack() for op in self.operators])
+        # return 0.5 * (1 + self.health / 100) * st.harmonic_mean([1, 2, 4])
 
     def damage(self):
-        return 0.1 + sum([oper.experience() / 100 for oper in self.operators()] )
+        return 0.1 + sum([oper.experience() / 100 for oper in self.operators] )
