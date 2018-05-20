@@ -22,12 +22,16 @@ class Unit(metaclass=ABCMeta):
         pass
 
     @property
-    def alive(self):
+    def active(self):
         return self._health > 0
 
     @property
     def health(self):
-        return self._health
+        return self._health  
+
+    @health.setter
+    def health(self, val):
+        self._health = val
 
     def name(self):
         self._name

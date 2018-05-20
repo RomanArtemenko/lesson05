@@ -8,19 +8,24 @@ class Soldier(Unit):
         self._experience = experience
 
     @property
+    def attack(self):
+        return 0.5 * (1 + self.health / 100) * random.randrange(50 + self._experience, 100) / 100
+
+    @property
+    def damage(self):
+        return 0.05 + self._experience / 100
+
+    @property
     def experience(self):
         return self._experience
 
     def add_experience(self):
         if self.experience < 50:
-            self._experience += 1
+            self._experience += 1   
 
-    def attack(self):
-        return 0.5 * (1 + self.health / 100) * random.randrange(50 + self._experience, 100) / 100
+    def do_attack(self):
+        self.add_experience()
+        return self.attack
 
-    def damage(self):
-        return 0.05 + self._experience / 100
-
-
-
-
+    def take_damage(self, damage):
+        self._health = self.health - damage
