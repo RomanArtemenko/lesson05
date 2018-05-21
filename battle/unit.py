@@ -2,10 +2,11 @@ from abc import ABCMeta, abstractmethod
 
 class Unit(metaclass=ABCMeta):
 
-    def __init__(self, name, health=100, recharge=100):
+    def __init__(self, name, clock, health=100, recharge=100):
         self._name = name
         self._health = health
         self._recharge = recharge
+        self._clock = clock
 
     def __str__(self):
         return "%s %s" % (self.__class__.__name__ , self._name)

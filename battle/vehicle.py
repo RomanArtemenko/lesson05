@@ -8,10 +8,11 @@ import battle.statisctics.statisctics as st
 class Vehicle(Unit):
     _operators = []
 
-    def __init__(self, name, health, recharge, operators):
-        super().__init__(name, health, recharge)
+    def __init__(self, name, clock, health, recharge, operators):
+        super().__init__(name, clock, health, recharge)
         for operator in operators:
             self.operators = operator
+            
     @property
     def attack(self):
         return 0.5 * (1 + self.health / 100) * st.harmonic_mean([op.attack for op in self.operators])

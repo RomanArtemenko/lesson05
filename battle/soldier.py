@@ -3,8 +3,8 @@ from battle.unit import Unit
 
 class Soldier(Unit):
 
-    def __init__(self, name, health, recharge, experience=0):
-        super().__init__(name, health, recharge)
+    def __init__(self, name, clock, health, recharge, experience=0):
+        super().__init__(name, clock, health, recharge)
         self._experience = experience
 
     @property
