@@ -6,6 +6,7 @@ class Unit(metaclass=ABCMeta):
         self._name = name
         self._health = health
         self._recharge = recharge
+        self._recharge_end = 0
         self._clock = clock
 
     def __str__(self):
@@ -33,6 +34,10 @@ class Unit(metaclass=ABCMeta):
     @health.setter
     def health(self, val):
         self._health = val
+
+    @property
+    def is_recharge(self):
+        return self._recharge_end > self._clock.time
 
     def name(self):
         self._name

@@ -6,10 +6,11 @@ import battle.statisctics.statisctics as st
 
 
 class Vehicle(Unit):
-    _operators = []
+    # _operators = []
 
     def __init__(self, name, clock, health, recharge, operators):
         super().__init__(name, clock, health, recharge)
+        self._operators = []
         for operator in operators:
             self.operators = operator
             
@@ -23,7 +24,7 @@ class Vehicle(Unit):
     
     @property
     def operators(self):
-        return self._operators
+        return [operator for operator in self._operators if operator.active]
     
     @operators.setter
     def operators(self, operator):
@@ -32,14 +33,11 @@ class Vehicle(Unit):
 
     @property
     def operators_active(self):
-        for operator in self.operators:
-            if operator.active:
-                return True
-        return False
+        return bool(self.operators)
 
     @property
     def active(self):
-        return (super().active and self.operators_active)
+        return super().active and self.operators_active
 
     def take_damage(self, damage):
         self._health = self.health - damage * 0.6
@@ -51,4 +49,11 @@ class Vehicle(Unit):
                 operator.take_damage(damage * 0.1)
             operator.take_damage(damage * 0.1)
 
+    def do_attack(self):
+        self._recharge_end = self._clock.time + self._recharge_end
+
+        for operator in self.operators:
+            operator.do_attack()
+
+        return self.damage
 

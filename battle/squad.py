@@ -1,13 +1,14 @@
 from battle.unit import Unit
+import battle.statisctics.statisctics as st
 
 class Squad(Unit):
 
     def __init__(self, units):
-        self._units
+        self.units = units
 
     @property
     def units(self):
-        return self._units
+        return [unit for unit in self._units if unit.active]
 
     @units.setter
     def units(self, units):
@@ -15,24 +16,21 @@ class Squad(Unit):
 
     @property
     def active(self):
-        for unit in self.units:
-            if unit.active:
-                return True
-        return False
+        return bool(self.units)
     
     @property
     def attack(self):
-        return 1 
+        return st.harmonic_mean([unit.attack for unit in self.units]) 
 
     @property
     def damage(self):
-        return 1
+        return sum([unit.damage for unit in self.units if not unit.is_recharge])
 
     def do_attack(self):
-        pass
+        for unit in self.units:
+            unit.do_attack()
+        return self.damage
 
     def take_damage(self, damage):
-        active_units = [unit for unit in self.units if unit.active]
-        unit_damage = damage / len(active_units)
-        for unit in active_units:
-            unit.take_damage(unit_damage)
+        for unit in self.units:
+            unit.take_damage(damage / len(self.units))

@@ -19,13 +19,15 @@ class Soldier(Unit):
     def experience(self):
         return self._experience
 
-    def add_experience(self):
+    def add_experience(self, val):
         if self.experience < 50:
-            self._experience += 1   
+            self._experience += val   
 
     def do_attack(self):
-        self.add_experience()
-        return self.attack
+        self.add_experience(self.attack + self.damage)
+        self._recharge_end = self.clock.time + self._recharge_end
+        
+        return self.damage
 
     def take_damage(self, damage):
         self._health = self.health - damage
