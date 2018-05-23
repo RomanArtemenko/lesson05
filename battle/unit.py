@@ -15,6 +15,21 @@ class Unit(metaclass=ABCMeta):
     def __repr__(self):
         return "%s %s" % (self.__class__.__name__ , self._name)
 
+    def __gt__(self, obj):
+        return self.health > obj.health
+
+    def __lt__(self, obj):
+        return self.health < obj.health
+
+    def __eq__(self, obj):
+        return self.health == obj.health
+
+    def __le__(self, obj):
+        return self.health <= obj.health
+
+    def __ge__(self, obj):
+        return self.health >= obj.health
+
     @abstractmethod
     def attack(self):
         pass

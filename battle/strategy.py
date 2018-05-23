@@ -1,17 +1,24 @@
+import random
 from abc import ABCMeta, abstractmethod
 
  class Strategy(metaclass=ABCMeta):
 
      @abstractmethod
-     def select_squad(self, army):
+     def select_enemy(self, enemy):
          pass
 
  class RandomStrategy(Strategy):
-     pass
+     
+     def select_enemy(self, enemy):
+         return random.choice(enemy)
 
  class WeakestStrategy(Strategy):
-     pass
+      
+     def select_enemy(self, enemy):
+         return min(enemy)
 
  class StrongestStrategy(Strategy):
-     pass
+     
+     def select_enemy(self, enemy):
+         return max(enemy)
 

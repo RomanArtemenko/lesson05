@@ -26,6 +26,10 @@ class Squad(Unit):
     def damage(self):
         return sum([unit.damage for unit in self.units if not unit.is_recharge])
 
+    @property
+    def health(self):
+        return round(st.mean([unit.health for unit in self.units]) ,2)
+
     def do_attack(self):
         for unit in self.units:
             unit.do_attack()

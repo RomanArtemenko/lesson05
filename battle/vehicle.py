@@ -21,6 +21,10 @@ class Vehicle(Unit):
     @property
     def damage(self):
         return 0.1 + sum([oper.experience / 100 for oper in self.operators])
+
+    @property
+    def health(self):
+        return round(st.mean([super().health] + [operator.health for operator in self.operators]), 2)
     
     @property
     def operators(self):
