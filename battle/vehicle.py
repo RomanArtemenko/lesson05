@@ -6,10 +6,9 @@ import battle.statisctics.statisctics as st
 
 
 class Vehicle(Unit):
-    # _operators = []
 
-    def __init__(self, name, clock, health, recharge, operators):
-        super().__init__(name, clock, health, recharge)
+    def __init__(self, name, clock, health, operators):
+        super().__init__(name, clock, health, 1000)
         self._operators = []
         for operator in operators:
             self.operators = operator

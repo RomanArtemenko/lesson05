@@ -3,13 +3,13 @@ from battle.unit import Unit
 
 class Soldier(Unit):
 
-    def __init__(self, name, clock, health, recharge, experience=0):
-        super().__init__(name, clock, health, recharge)
+    def __init__(self, name, clock, health, experience=1):
+        super().__init__(name, clock, health)
         self._experience = experience
 
     @property
     def attack(self):
-        return 0.5 * (1 + self.health / 100) * random.randrange(50 + self._experience, 100) / 100
+        return 0.5 * (1 + self.health / 100) * random.uniform(50 + self.experience, 100) / 100
 
     @property
     def damage(self):
@@ -25,7 +25,7 @@ class Soldier(Unit):
 
     def do_attack(self):
         self.add_experience(self.attack + self.damage)
-        self._recharge_end = self.clock.time + self._recharge_end
+        self._recharge_end = self._clock.time + self._recharge_end
         
         return self.damage
 

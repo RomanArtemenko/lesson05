@@ -1,11 +1,12 @@
 from abc import ABCMeta, abstractmethod
+import random
 
 class Unit(metaclass=ABCMeta):
 
     def __init__(self, name, clock, health=100, recharge=100):
         self._name = name
         self._health = health
-        self._recharge = recharge
+        self._recharge = random.randrange(recharge, 2000)
         self._recharge_end = 0
         self._clock = clock
 

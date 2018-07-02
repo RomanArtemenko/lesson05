@@ -3,7 +3,8 @@ import battle.statisctics.statisctics as st
 
 class Squad(Unit):
 
-    def __init__(self, units):
+    def __init__(self, name, units):
+        self._name = name
         self.units = units
 
     @property
